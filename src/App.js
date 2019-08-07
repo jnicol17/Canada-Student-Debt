@@ -103,7 +103,7 @@ const mapOptions = {
           data: data,
           name: "USA",
           dataLabels: {
-            enabled: true,
+            enabled: false,
             format: "{point.name}"
           }
         }
