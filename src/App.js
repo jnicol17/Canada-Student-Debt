@@ -28,9 +28,7 @@ var data = [
 
 const mapOptions = {
   chart: {
-        map: 'countries/ca/ca-all',
-        height: 200,
-        width: 200
+        map: 'countries/ca/ca-all'
     },
 
     title: {
