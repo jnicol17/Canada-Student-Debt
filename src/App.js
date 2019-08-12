@@ -1,6 +1,8 @@
 import React from 'react';
 import Highcharts from 'highcharts'
 import mapData from './data/mapData.js'
+import studentDebt2005Options from './data/studentDebtData2005.js'
+import studentDebt2010 from './data/studentDebtData2010.js'
 import MapChart from './components/Map.jsx'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
@@ -9,60 +11,10 @@ import ToggleButton from 'react-bootstrap/ToggleButton'
 // Load Highcharts modules
 require('highcharts/modules/map')(Highcharts);
 
-var testData = [
-    [    
-      ['ca-5682', 0],
-      ['ca-bc', 1],
-      ['ca-nu', 2],
-      ['ca-nt', 3],
-      ['ca-ab', 4],
-      ['ca-nl', 5],
-      ['ca-sk', 6],
-      ['ca-mb', 7],
-      ['ca-qc', 8],
-      ['ca-on', 9],
-      ['ca-nb', 10],
-      ['ca-ns', 11],
-      ['ca-pe', 12],
-      ['ca-yt', 13]
-    ], 
- [    
-      ['ca-5682', 0],
-      ['ca-bc', 21],
-      ['ca-nu', 22],
-      ['ca-nt', 23],
-      ['ca-ab', 24],
-      ['ca-nl', 25],
-      ['ca-sk', 26],
-      ['ca-mb', 27],
-      ['ca-qc', 28],
-      ['ca-on', 29],
-      ['ca-nb', 210],
-      ['ca-ns', 211],
-      ['ca-pe', 212],
-      ['ca-yt', 213]
-    ],
-    [
-      ['ca-5682', 0],
-      ['ca-bc', 31],
-      ['ca-nu', 32],
-      ['ca-nt', 33],
-      ['ca-ab', 34],
-      ['ca-nl', 35],
-      ['ca-sk', 36],
-      ['ca-mb', 37],
-      ['ca-qc', 38],
-      ['ca-on', 39],
-      ['ca-nb', 310],
-      ['ca-ns', 311],
-      ['ca-pe', 312],
-      ['ca-yt', 313]
-    ]
-];
-
 class App extends React.Component {
   constructor (props){
     super(props);
+    console.log(this.props.year)
     this.state = {
       currentYear: 2005,
       currentYearIndex: 0,
@@ -110,7 +62,22 @@ class App extends React.Component {
         series: [
           {
             mapData: mapData,
-            data: testData[0]
+            data: [
+              ['ca-5682', 0],
+              ['ca-bc', 1],
+              ['ca-nu', 2],
+              ['ca-nt', 3],
+              ['ca-ab', 4],
+              ['ca-nl', 5],
+              ['ca-sk', 6],
+              ['ca-mb', 7],
+              ['ca-qc', 8],
+              ['ca-on', 9],
+              ['ca-nb', 10],
+              ['ca-ns', 11],
+              ['ca-pe', 12],
+              ['ca-yt', 13]
+            ]
           }
         ],
         mapNavigation: {
@@ -128,23 +95,53 @@ class App extends React.Component {
   }
 
   setYear = (index, year) => {
-
-    // PROBLEM COPYING ARRAY HERE
-    let copy = JSON.parse(JSON.stringify(this.state.options))
-    console.log(copy)
-    console.log(testData)
-    copy.series[0].data = testData[index]
-
+    let test = JSON.parse(JSON.stringify(this.state.options))
+    console.log(this.state.options)
+    console.log(test)
+    let newSeries = {};
+    newSeries.mapData = mapData;
+    if (index === 1){
+      newSeries.data = [
+        ['ca-5682', 0],
+        ['ca-bc', 11],
+        ['ca-nu', 21],
+        ['ca-nt', 31],
+        ['ca-ab', 41],
+        ['ca-nl', 51],
+        ['ca-sk', 61],
+        ['ca-mb', 71],
+        ['ca-qc', 81],
+        ['ca-on', 91],
+        ['ca-nb', 101],
+        ['ca-ns', 111],
+        ['ca-pe', 121],
+        ['ca-yt', 131]];
+    }
+    else {
+      newSeries.data = [
+        ['ca-5682', 0],
+        ['ca-bc', 111],
+        ['ca-nu', 211],
+        ['ca-nt', 311],
+        ['ca-ab', 411],
+        ['ca-nl', 511],
+        ['ca-sk', 611],
+        ['ca-mb', 711],
+        ['ca-qc', 811],
+        ['ca-on', 911],
+        ['ca-nb', 1011],
+        ['ca-ns', 1111],
+        ['ca-pe', 1211],
+        ['ca-yt', 1311]];
+    }
+    test.series.pop()
+    test.series.push(newSeries)
+    console.log(test)
     this.setState({
       currentYearIndex: index,
       currentYear: year,
-      options: copy
+      options: test
     })
-    /**
-    currentYearIndex = index;
-    currentYear = year;
-    console.log(currentYearIndex)
-    */
   }
 
   render() {
