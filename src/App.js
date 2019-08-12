@@ -1,8 +1,8 @@
 import React from 'react';
 import Highcharts from 'highcharts'
 import mapData from './data/mapData.js'
-import studentDebt2005Options from './data/studentDebtData2005.js'
-import studentDebt2010 from './data/studentDebtData2010.js'
+//import studentDebt2005Options from './data/studentDebtData2005.js'
+//import studentDebt2010Options from './data/studentDebtData2010.js'
 import MapChart from './components/Map.jsx'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
@@ -14,7 +14,6 @@ require('highcharts/modules/map')(Highcharts);
 class App extends React.Component {
   constructor (props){
     super(props);
-    console.log(this.props.year)
     this.state = {
       currentYear: 2005,
       currentYearIndex: 0,
@@ -96,11 +95,28 @@ class App extends React.Component {
 
   setYear = (index, year) => {
     let test = JSON.parse(JSON.stringify(this.state.options))
-    console.log(this.state.options)
-    console.log(test)
+    //console.log(this.state.options)
+    //console.log(test)
     let newSeries = {};
     newSeries.mapData = mapData;
-    if (index === 1){
+    if (index === 0){
+      newSeries.data = [
+        ['ca-5682', 0],
+        ['ca-bc', 1],
+        ['ca-nu', 2],
+        ['ca-nt', 3],
+        ['ca-ab', 4],
+        ['ca-nl', 5],
+        ['ca-sk', 6],
+        ['ca-mb', 7],
+        ['ca-qc', 8],
+        ['ca-on', 9],
+        ['ca-nb', 10],
+        ['ca-ns', 11],
+        ['ca-pe', 12],
+        ['ca-yt', 13]];   
+    }
+    else if (index === 1){
       newSeries.data = [
         ['ca-5682', 0],
         ['ca-bc', 11],
@@ -136,7 +152,7 @@ class App extends React.Component {
     }
     test.series.pop()
     test.series.push(newSeries)
-    console.log(test)
+    //console.log(test)
     this.setState({
       currentYearIndex: index,
       currentYear: year,
